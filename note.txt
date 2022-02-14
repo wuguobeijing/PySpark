@@ -1,0 +1,75 @@
+groupByKey仅仅有分组功能而已
+reduceByKey除了有ByKey 的分组功能外，还有 reduce 聚合功能.
+
+10.distinct:去重
+11.union算子：合并两个RDD。 1）可以看到 union算子是不会去重。2）RDD的类型不同也是可以合并的.
+12.join算子：只能用于二元元组。join、leftOuterJoin
+13.intersection算子，rdd取交集-->返回新RDD
+14.glom：将RDD的数据，加上嵌套，这个嵌套按照分区来进行
+15.groupByKey算子-功能∶针对KV型 RDD，自动按照key分组（相较于reducebykey，它不具备聚合功能，仅用来分组，适合二元元组）
+    相较于groupBy，它保留的仅是key下的所有value，而不是key下的所有（key，value），且groupBy算子可以自定义分组方法
+16.sortBy:功能∶对RDD数据进行排序，基于你指定的排序依据. 语法∶
+    rdd.sortBy(func,ascending=FaLse,numPartitions=1)
+    # func∶（T）→ U∶告知按照rdd中的哪个数据进行排序，比如 lambda x∶x[1]表示按照rdd中的第二列元素进行排序# ascending True升序 False 降序# numPartitions∶用多少分区排序
+17.sortByKey功能∶针对KV型RDD，按照key进行排序
+    sortByKey(ascending=True,numPartitions=None,keyfunc=<function RDD.<lambda>>)
+    # ascending∶升序or降序， True升序， False降序，默认是升序
+    # numPartitions∶按照几个分区进行排序，如果全局有序，设置1
+    # keyfunc∶在排序前对key进行处理，语法是∶（k）→ U，一个参数传入返回一个值
+18.transaction算子总结
+19.transaction算子,上传到yarn中执行
+27.mapPartitions：相较于map，它一次传输单个分区的全部内容，而不是按行传
+30.·repartition算子-Transformation
+    功能∶对RDD的分区执行重新分区（仅数量）
+    用法∶rdd.repartition(N)传入N决定新的分区数
+    ·coalesce 算子-Transformation
+    功能∶对分区进行数量增减用法∶
+    用法∶rdd.coalesce（参数1，参数2 -参数1，分区数-参数2，True 0r False。True表示允许shuffLe，也就是可以加分区，False表示不允许shuffle，也就是不能加吩分区，Fa1se是默认
+
+
+
+
+Action算子
+Collect算子
+功能∶将RDD各个分区内的数据，统一收集到Driver中，形成一个List对象
+
+# 参数传入2个 1个返回值，返回值和参数要求类型一致
+20.countByKey算子。功能∶统计key出现的次数（一般适用于KV型RDD）
+21.Reduce算子功能∶对RDD数据集按照你传入的逻辑进行聚合语法∶
+    rdd.reduce(func)# func:(T,T)→ T
+22.fold算子
+    功能∶和reduce一样，接受传入逻辑进行聚合，聚合是带有初始值的，每个分区都带有初始值，分区间聚合也起作用
+23.first算子：取出rdd的第一个元素
+   take算子.Action.功能∶取RDD的前N个元素，组合成list返回给你
+   top算子，对RDD数据集进行降序排序，取前N个
+   count算子，功能∶计算RDD有多少条数据，返回值是一个数字
+   takeSample算子-Action。功能∶随机抽样RDD的数据
+   @@takeSampLe（参数1∶True or False，参数2∶采样数，参数3;随机数种子）
+    - 参数1∶True表示运行取同一个数据，False表示不允许取同一个数据.和数据内容无关，是否重复表示的是同—个位置的数据
+    - 参数2∶抽样要几个
+    -参数3∶随机数种子，这个参数传入一个数字即可，随意给
+24.takeOrdered算子-功能∶对RDD进行排序取前N个(参数1：排几个。参数2：排序前对数据进行的更改)
+25.foreach算子
+    功能∶对RDD的每一个元素，执行你提供的逻辑的操作（和map一个意思），但是这个方法没有返回值
+26.saveAsTextFile算子功能∶将RDD的数据写入文本文件中
+    支持本地写出，hdfs等文件系统.
+    25-26两个算子不经过driver，有几个分区就有几个输出
+27.属于transformation
+28.foreachPartition算子-功能∶和普通foreach一致，一次处理的是一整个分区数据，没有返回值
+29.partitionBy：功能∶对RDD进行自定义分区操作
+    rdd.partitionBy（参数1，参数2）- 参数1 重新分区后有几个分区-参数2 自定义分区规则，函数传入
+
+31.rdd是过程数据，在算子运算完后会被清理
+    cache方法：缓存到内存中，分散存储
+32.checkpoint方法：缓存到硬盘上（通常放在hdfs），集中存储，相较于cache更加安全
+
+33.broadcast(广播变量):给每个Executor来一份数据，而不是像原本那样，每一个分区的处理线程都发送一份.节省内存.
+34.accumulator(累加器):想要对map算子计算中的数据，进行计数累加.得到全部数据计算完后的累加结果
+
+sql
+0-8.dataframe创建方法
+9.DSL语法风格
+    DSL称之为：领域特定语言。
+    其实就是指DataFrame的特有API
+    DSL风格意思就是以调用API的方式来处理Data。比如：df.where().limit()
+10. sql 语法风格
