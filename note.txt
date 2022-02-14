@@ -1,3 +1,18 @@
+01：演示通过并行化集合的方式去创建RDD, 本地集合 -> 分布式对象(RDD)，parallelize方法规定分区数
+02：通过textFile API 读取数据，本地或服务器
+03：读取路径中的小文件并创建rdd：rdd = sc.wholeTextFiles
+
+    算子的概念（transformation算子，结果依然是rdd）与（action算子：结果不是rdd，负责对rdd进行输出触发）
+    转换算子transformation
+04：map算子，将rdd数据一条条处理（处理逻辑基于map算子接收的处理函数），返回新的rdd
+05：flatmap算子，先进行map后进行解除嵌套
+06：reduceByKey算子，针对kv型RDD，自动按照key分组，根据聚合逻辑完成组内数据聚合操作
+07：word count任务
+08：groupBy算子，通过传入函数确定分组方法
+09：filter算子，传入方法返回值为true or false
+10：distinct算子，去重
+11:union算子，将两个rdd合并。rdd1.union（rdd2）
+12:join算子，包含join内连接、leftOuterJoin与rightOuterJoin三种
 groupByKey仅仅有分组功能而已
 reduceByKey除了有ByKey 的分组功能外，还有 reduce 聚合功能.
 
