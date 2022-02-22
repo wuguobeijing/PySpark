@@ -88,3 +88,7 @@ sql
     其实就是指DataFrame的特有API
     DSL风格意思就是以调用API的方式来处理Data。比如：df.where().limit()
 10. sql 语法风格
+11.12两个实用例子
+13.数据预处理方法（去重、删除空值、填充）
+14.写出数据（test、json、csv）
+15.和数据库连接（hadoop103当中尚未安装jdbc connector！，仅在windows测试）

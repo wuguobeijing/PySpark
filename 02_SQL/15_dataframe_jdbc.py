@@ -28,24 +28,24 @@ if __name__ == '__main__':
         schema(schema=schema). \
         load("../data/input/sql/u.data")
 
-    # # 1. 写出df到mysql数据库中
-    # df.write.mode("overwrite").\
-    #     format("jdbc").\
-    #     option("url", "jdbc:mysql://node1:3306/bigdata?useSSL=false&useUnicode=true").\
-    #     option("dbtable", "movie_data").\
-    #     option("user", "root").\
-    #     option("password", "2212072ok1").\
-    #     save()
+    # 1. 写出df到mysql数据库中
+    df.write.mode("overwrite").\
+        format("jdbc").\
+        option("url", "jdbc:mysql://localhost:3306/spark_data?useSSL=false&useUnicode=true").\
+        option("dbtable", "movie_data").\
+        option("user", "root").\
+        option("password", "toor").\
+        save()
 
-    df2 = spark.read.format("jdbc"). \
-        option("url", "jdbc:mysql://node1:3306/bigdata?useSSL=false&useUnicode=true"). \
-        option("dbtable", "movie_data"). \
-        option("user", "root"). \
-        option("password", "2212072ok1"). \
-        load()
+    # df2 = spark.read.format("jdbc"). \
+    #     option("url", "jdbc:mysql://localhost:3306/spark_data?useSSL=false&useUnicode=true"). \
+    #     option("dbtable", "movie_data"). \
+    #     option("user", "root"). \
+    #     option("password", "toor"). \
+    #     load()
 
-    df2.printSchema()
-    df2.show()
+    # df2.printSchema()
+    # df2.show()
 """
 JDBC写出, 会自动创建表的.
 因为DataFrame中有表结构信息, StructType记录的 各个字段的 名称 类型  和是否运行为空

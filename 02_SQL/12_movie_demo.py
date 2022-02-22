@@ -83,7 +83,7 @@ if __name__ == '__main__':
         limit(10).\
         show()
 
-    # time.sleep(10000)
+    time.sleep(10000)
 
 """
 1. agg: 它是GroupedData对象的API, 作用是 在里面可以写多个聚合
